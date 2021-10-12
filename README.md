@@ -17,6 +17,7 @@ As you can see, there is an empty functional component in `App.js`. Your test be
 * There is an endpoint to check for user's authorization status. You will have to use this endpoint to validate their authorization status and store it in a `react context` or something.
 * You should store their token in local storage so after they refresh the page, they stay logged in.
 * After the user logged in successfully, you should start working on some simple endpoints for the `wallet-address` module (which we will tell you about them).
+* All the required endpoints are stored in `endpoints.js` file. But feel free to ask me any questions.
 
 3. ### Wrapping things up
 
