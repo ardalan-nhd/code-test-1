@@ -1,70 +1,23 @@
-# Getting Started with Create React App
+## Welcome
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Welcome to Vorna code interview. This test is just a blank `CRA (create-react-app)` project and you are free to do anything with it (installing packages, searching in the internet, etc.). In order to pass this test, you need to do a few simple things as follows:
 
-In the project directory, you can run:
+1. ### Getting started
 
-### `npm start`
+You are reading this file. So that means you already cloned the project and almost ready to start the project in development mode. Great! Keep going...
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. ### About the test itself
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+As you can see, there is an empty functional component in `App.js`. Your test begins here actually. You have to create a login page with a login form in it. Then get the credentials from user and log them in. After that redirect them to an OTC page which we will tell you about what OTC is and what you have to do. Here is a list of things that you need to know:
+* The API is located at [https://api.novinex.net](https://api.novinex.net). Please use `axios` for your API calls, nothing else (which i already installed it for you).
+* We will give you all the endpoints that you need for login, check authorization and OTC.
+* Our API is token based. That means you have to send an API key in header of all of your requests. That way, the API can validate the user's login status.
+* The API key which i mentioned above is taken from login endpoint. After the user enterred their credentials correctly, You will take a token in response of login endpoint. You will have to set the `authorization` header of your requests to `"Bearer {token from response}"`.
+* There is an endpoint to check for user's authorization status. You will have to use this endpoint to validate their authorization status and store it in a `react context` or something.
+* You should store their token in local storage so after they refresh the page, they stay logged in.
+* After the user logged in successfully, you should start working on some simple endpoints for the `OTC` module (which we will tell you about them).
 
-### `npm test`
+3. ### Wrapping things up
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Since our company mainly works on crypto, it's good for you to pass a test containing what we do. But don't worry if you didn't finish all the tasks. Your coding style, programming skills and react skills matter the most to us. So keep your calm during the test and So keep calm during the test and Good luck.
