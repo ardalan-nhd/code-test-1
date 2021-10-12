@@ -10,7 +10,7 @@ You are reading this file. So that means you already cloned the project and almo
 2. ### About the test itself
 
 As you can see, there is an empty functional component in `App.js`. Your test begins here actually. You have to create a login page with a login form in it. Then get the credentials from user and log them in. After that redirect them to a `wallet-address` page which we will tell you about what you have to do. Here is a list of things that you need to know:
-* The API is located at [https://api.novinex.net](https://api.novinex.net). Please use `axios` for your API calls, nothing else (which i already installed it for you).
+* The API is located at [https://api.cbex.ir](https://api.cbex.ir). Please use `axios` for your API calls, nothing else (which i already installed it for you).
 * We will give you all the endpoints that you need for login, check authorization and wallet-address.
 * Our API is token based. That means you have to send an API key in header of all of your requests. That way, the API can validate the user's login status.
 * The API key which i mentioned above is taken from login endpoint. After the user enterred their credentials correctly, You will take a token in response of login endpoint. You will have to set the `authorization` header of your requests to `"Bearer {token from response}"`.
