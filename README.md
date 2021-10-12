@@ -13,7 +13,7 @@ As you can see, there is an empty functional component in `App.js`. Your test be
 * The API is located at [https://api.cbex.ir](https://api.cbex.ir). Please use `axios` for your API calls, nothing else (which i already installed it for you).
 * We will give you all the endpoints that you need for login, check authorization and wallet-address.
 * Our API is token based. That means you have to send an API key in header of all of your requests. That way, the API can validate the user's login status.
-* The API key which i mentioned above is taken from login endpoint. After the user enterred their credentials correctly, You will take a token in response of login endpoint. You will have to set the `authorization` header of your requests to `"Bearer {token from response}"`.
+* The API key which i mentioned above is taken from login endpoint. After the user enterred their credentials and captcha correctly, You will take a token in response of login endpoint. You will have to set the `authorization` header of your requests to `"Bearer {token from response}"`.
 * There is an endpoint to check for user's authorization status. You will have to use this endpoint to validate their authorization status and store it in a `react context` or something.
 * You should store their token in local storage so after they refresh the page, they stay logged in.
 * After the user logged in successfully, you should start working on some simple endpoints for the `wallet-address` module (which we will tell you about them).
