@@ -24,6 +24,8 @@ const defaultOptions = {
   method: METHOD.GET,
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    Accept: "application/json",
   },
 };
 
@@ -37,19 +39,21 @@ class ApiService {
       method: METHOD.GET,
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
       },
     };
 
     this.session = axios.create(defaultOptions);
     this.session.interceptors.request.use((config) => {
       const token = getCachedData("access_token");
-      if (token) {
-        config.headers["Authorization"] = `${token}`;
+      if (!!token) {
+        config.headers["Authorization"] = `Bearer ${token}`;
       }
-      if (config.data?.captcha) {
-        config.headers["captcha-response"] = config.data?.captcha;
-        delete config.data?.captcha;
-      }
+      // if (config.data?.captcha) {
+      //   config.headers["captcha-response"] = config.data?.captcha;
+      //   delete config.data?.captcha;
+      // }
       config.params = Object.assign({}, config.params || {});
       return config;
     });
@@ -78,20 +82,14 @@ class ApiService {
 
   get = (url, options = {}) =>
     trackPromise(this.session.get(url, { ...defaultOptions, ...options }));
-  getWithoutLoading = (url, options = {}) =>
-    this.session.get(url, { ...defaultOptions, ...options });
   post = (url, data, options = {}) =>
     trackPromise(
       this.session.post(url, data, { ...defaultOptions, ...options })
     );
-  postWithoutLoading = (url, data, options = {}) =>
-    this.session.post(url, data, { ...defaultOptions, ...options });
   put = (url, data, options = {}) =>
     trackPromise(
       this.session.put(url, data, { ...defaultOptions, ...options })
     );
-  putWithoutLoading = (url, data, options = {}) =>
-    this.session.put(url, data, { ...defaultOptions, ...options });
   patch = (url, data, options = {}) =>
     trackPromise(
       this.session.patch(url, data, { ...defaultOptions, ...options })

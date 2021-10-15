@@ -13,53 +13,52 @@ import captchaApi from "../../api/captchaApi";
 const LoginForm = () => {
   const classes = useStyles();
   const dispatchUser = useUserDispatch();
-  const [loading, setLoading] = useState(false);
   const [state, setState] = useState();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(getValidationSchema(["userName", "password"])),
+    resolver: yupResolver(
+      getValidationSchema(["userName", "password", "captcha"])
+    ),
   });
   useEffect(() => {
     captchaApi.getCaptcha({}).then((res) => {
       setState(res);
     });
   }, []);
-  // console.log(state);
+
+  // console.log(captchaValue);
   const submit = (value) => {
-    setLoading(true);
-    authApi
-      .login({
-        payload: {
-          username: value.userName,
-          password: value.password,
-          captcha: value.captcha,
-          remember: "0",
-        },
-      })
-      .then((res) => {
-        setLoading(false);
-        console.log(res);
-        // dispatchUser({
-        //   type: USER_LOGIN.SUCCESS,
-        //   payload: {
-        //     token: res.data.access_token,
-        //     user: {
-        //       username: value.userName,
-        //     },
-        //   },
-        // });
-      })
-      .catch((error) => {
-        setLoading(false);
-        notification(
-          "Error",
-          "danger",
-          error?.message ? error.message : "An error occurred on the server"
-        );
-      });
+    if (!!value) {
+      console.log(value);
+      authApi
+        .login({
+          payload: {
+            credential: value?.userName,
+            password: value?.password,
+            captcha_key: state?.key,
+            captcha: value?.captcha,
+            remember: "0",
+          },
+        })
+        .then((res) => {
+          dispatchUser({
+            type: USER_LOGIN.SUCCESS,
+            payload: {
+              token: res.token,
+            },
+          });
+        })
+        .catch((error) => {
+          notification(
+            "Error",
+            "danger",
+            error?.message ? error.message : "An error occurred on the server"
+          );
+        });
+    }
   };
 
   return (
@@ -70,19 +69,23 @@ const LoginForm = () => {
           <Typography variant="h4" className={classes.titleLogin}>
             {"خوش آمدید"}
           </Typography>
+          <br />
           <form className={classes.form} onSubmit={handleSubmit(submit)}>
             <Grid container spacing={8}>
               <>
                 <Grid
                   item
-                  className={classes.formControl2}
                   {...{ xl: 12, lg: 12, md: 12, xs: 12, sm: 12 }}
+                  style={{ paddingTop: "60px" }}
                 >
                   <TextField
                     autoFocus={true}
-                    className={classes.input}
                     name={"userName"}
-                    inputProps={{ min: 0, style: { textAlign: "center" } }}
+                    inputProps={{
+                      min: 0,
+                      style: { textAlign: "center", color: "white" },
+                    }}
+                    className={classes.input}
                     inputRef={register("userName").ref}
                     {...register("userName")}
                     helperText={errors.userName && errors.userName.message}
@@ -92,8 +95,8 @@ const LoginForm = () => {
                 </Grid>
                 <Grid
                   item
-                  className={classes.formControl2}
                   {...{ xl: 12, lg: 12, md: 12, xs: 12, sm: 12 }}
+                  style={{ paddingTop: "30px" }}
                 >
                   <TextField
                     name={"password"}
@@ -111,8 +114,15 @@ const LoginForm = () => {
                 </Grid>
                 <Grid
                   item
-                  className={classes.formControl2}
                   {...{ xl: 12, lg: 12, md: 12, xs: 12, sm: 12 }}
+                  style={{ paddingTop: "20px" }}
+                >
+                  <img src={state?.img} alt={"captcha"} />
+                </Grid>
+                <Grid
+                  item
+                  {...{ xl: 12, lg: 12, md: 12, xs: 12, sm: 12 }}
+                  style={{ paddingTop: "10px" }}
                 >
                   <TextField
                     name={"captcha"}
@@ -123,9 +133,9 @@ const LoginForm = () => {
                     className={classes.input}
                     inputRef={register("captcha").ref}
                     {...register("captcha")}
-                    helperText={errors.captcha && errors.captcha.message}
+                    helperText={errors?.captcha && errors?.captcha?.message}
                     error={errors.captcha}
-                    placeholder={"captcha"}
+                    placeholder={"نوشته تصویر"}
                   />
                 </Grid>
               </>

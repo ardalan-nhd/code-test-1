@@ -5,6 +5,7 @@ import { useUserState } from "../context/user/UserContext";
 
 function Route({ authorize, children, ...rest }) {
   const { authorized } = useUserState();
+  console.log(authorized);
   const { pathname } = useLocation();
 
   return (

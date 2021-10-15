@@ -4,14 +4,25 @@ export default function getValidationSchema(arrayOfKeys) {
   const userSchemaObject = {
     password: yup
       .string()
-      .required("Password is Required")
-      .min(8, "Password is too short - should be 8 chars minimum"),
+      .required("رمز عبور اجباری است")
+      .min(8, "رمز عبور نباید کمتر از ۸ کاراکتر باشد"),
 
     userName: yup
       .string()
-      .required("Name is Required")
-      .min(3, "Name is too short - should be 3 chars minimum")
-      .max(32, "Name is too long - should be 32 chars maximum"),
+      .required("اسم اجیباری است")
+      .min(3, "نام کاربری نباید کمتر از ۳ کاراکتر باشد")
+      .max(32, "نام کاربری نباید بیشتر از ۳۲ کاراکتر باشد"),
+    captcha: yup
+      .string()
+      .required("نوشتن محتوای عکس اجباری است")
+      .min(5, "نوشته کمتر از ۵ حرف نباید باشد")
+      .max(5, "نوشته نباید بیشتر از ۵ حرف باشد"),
+    title: yup
+      .string()
+      .required("عنوان اجباری است")
+      .min(3, "نام کاربری نباید کمتر از ۳ کاراکتر باشد")
+      .max(32, "نام کاربری نباید بیشتر از ۳۲ کاراکتر باشد"),
+    blockchain: yup.string().required("عنوان اجباری است"),
   };
   const keys =
     arrayOfKeys.length === 0 ? Object.keys(userSchemaObject) : arrayOfKeys;

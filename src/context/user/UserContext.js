@@ -10,31 +10,11 @@ const UserStateContext = createContext();
 function UserProvider(props) {
   const { children } = props;
   const token = getCachedData("access_token");
-  const user = getCachedData("user");
   const [state, dispatch] = useReducer(userReducer, {
     ...initState,
     token,
-    user,
     authorized: !!token ? true : false,
   });
-
-//   useEffect(() => {
-//     if (!!token) {
-//       userApi
-//         .getUserInfo({ payload: user })
-//         .then((content) => {
-//           dispatch({
-//             type: USER_FETCH.SUCCESS,
-//             payload: { user: content.data },
-//           });
-//         })
-//         .catch((error) => {
-//           error
-//             ? console.log(error?.data?.message)
-//             : console.log("There is a problem");
-//         });
-//     }
-//   }, [token]);
 
   return (
     <UserStateContext.Provider value={state}>

@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     height: "100vh",
     padding: "36px 15px 10px",
-    background: "url(../../../public/bg-sign-up.jpg) no-repeat 50% 50%/cover",
+    background: "url(../../../bg-sign-up.jpg) no-repeat 50% 50%/cover",
     WebkitBoxOrient: "vertical",
     WebkitBoxDirection: "normal",
     MsFlexDirection: "column",
@@ -34,6 +34,7 @@ export default makeStyles((theme) => ({
   },
   form: {
     marginBottom: "20px",
+    marginTop: "20px",
   },
   part: {
     margin: "26px 10px",
@@ -54,10 +55,16 @@ export default makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: "32px",
+    width: "190px",
+    height: "80px",
+    background: "url(../../../welcome_PNG46.png) no-repeat 50% 50%/cover",
   },
   content: {
     padding: "52px 36px 38px",
     textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   input: {
     width: "100%",
@@ -67,10 +74,10 @@ export default makeStyles((theme) => ({
     color: "white",
     textAlign: "center",
     "& .MuiInput-underline::before": {
-      borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+      borderBottom: "1px solid white !important",
     },
     "& .MuiInput-underline::after": {
-      borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+      borderBottom: "1px solid white",
     },
 
     "& .MuiInputBase-input::placeholder": {
@@ -91,5 +98,6 @@ export default makeStyles((theme) => ({
     WebkitTransition: "opacity .2s !important",
     OTransition: "opacity .2s !important",
     transition: "opacity .2s !important",
+    marginTop: "20px !important",
   },
 }));

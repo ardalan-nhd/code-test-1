@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300px" height="300px" viewBox="0 0 300 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Logo/Crypto/Ethereum-ETH</title>
+    <defs>
+        <circle id="path-1" cx="150" cy="150" r="150"></circle>
+    </defs>
+    <g id="Logo/Crypto/Ethereum-ETH" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="bg" fill="#F3F3F3" xlink:href="#path-1"></use>
+        <g id="multi-collateral-dai-dai-logo" mask="url(#mask-2)" fill="#050C2C" fill-rule="nonzero">
+            <path d="M150,0 C232.850329,0 300,67.1631716 300,150 C300,232.850329 232.850329,300 150,300 C67.1631716,300 0,232.843578 0,150 C0,67.1631716 67.1631716,0 150,0 Z" id="Path"></path>
+        </g>
+        <g id="ethereum-eth-logo" mask="url(#mask-2)" fill-rule="nonzero">
+            <g transform="translate(87.000000, 48.000000)" id="Path">
+                <polygon fill="#DADCE2" points="62.5583378 0 61.1909163 4.64476551 61.1909163 139.413171 62.5583378 140.777402 125.11508 103.799579"></polygon>
+                <polygon fill="#FFFFFF" points="62.5583378 0 0 103.799579 62.5583378 140.777402 62.5583378 75.3645515"></polygon>
+                <polygon fill="#DADCE2" points="62.5583378 152.621474 61.7876673 153.561277 61.7876673 201.567825 62.5583378 203.817608 125.153374 115.662799"></polygon>
+                <polygon fill="#FFFFFF" points="62.5583378 203.817608 62.5583378 152.621474 0 115.662799"></polygon>
+                <polygon fill="#9DA1B2" points="62.5583378 140.777402 125.11508 103.799579 62.5583378 75.3645515"></polygon>
+                <polygon fill="#DADCE2" points="0 103.799579 62.5583378 140.777402 62.5583378 75.3645515"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
