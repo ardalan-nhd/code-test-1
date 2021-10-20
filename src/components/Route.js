@@ -1,12 +1,19 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { Redirect, Route as RRoute, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useUserState } from "../context/user/UserContext";
+import { getCachedData } from "../api/CookieManager";
 
 function Route({ authorize, children, ...rest }) {
   const { authorized } = useUserState();
-  console.log(authorized);
+  const token = getCachedData("access_token");
+
   const { pathname } = useLocation();
+  useEffect(() => {
+    if (authorized) {
+      console.log("yes");
+    }
+  }, [authorized, token]);
 
   return (
     <RRoute

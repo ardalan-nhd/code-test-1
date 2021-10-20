@@ -13,6 +13,7 @@ import captchaApi from "../../api/captchaApi";
 const LoginForm = () => {
   const classes = useStyles();
   const dispatchUser = useUserDispatch();
+  
   const [state, setState] = useState();
   const {
     register,
@@ -50,6 +51,7 @@ const LoginForm = () => {
               token: res.token,
             },
           });
+          
         })
         .catch((error) => {
           notification(

@@ -1,11 +1,18 @@
+import React, { useEffect, useState } from "react";
 import { Button, Grid, MenuItem, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
 import walletApi from "../../api/walletApi";
 import FormCard from "../../components/FormCard/index";
 import { notification } from "../../components/Notifications";
 import { yupResolver } from "@hookform/resolvers/yup";
 import getValidationSchema from "../registration/Schema";
 import { useForm } from "react-hook-form";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from "@apollo/client";
 import useStyles from "./Styles";
 
 const currencies = [
@@ -50,9 +57,13 @@ const Dashboard = (props) => {
     });
     return result;
   };
+  const client = new ApolloClient({
+    uri: "https://graph.microsoft.com",
+    cache: new InMemoryCache(),
+  });
   const onSubmit = (data) => {
     const val = getCurrency(currency);
-    console.log(val);
+    // console.log(val);
     if (currency) {
       walletApi
         .creatWallet({
@@ -79,88 +90,130 @@ const Dashboard = (props) => {
         });
     }
   };
-  return (
-    <form
-      className={classes.root}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <Typography variant="h5">سلام به صفحه حساب کابری خوش آمدید</Typography>
-      <FormCard
-        title={"ساخت کیف پول"}
-        imageSrc={"../../../wallet.svg"}
-        saveButton={
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            onClick={handleSubmit}
-          >
-            ساخت کیف پول
-          </Button>
-        }
-      >
-        <Grid container style={{ marginBottom: "20px" }}>
-          <Typography variant="body">نام کیف پول</Typography>
-          <TextField
-            fullWidth
-            name="title"
-            size="small"
-            variant="outlined"
-            inputRef={register("title").ref}
-            {...register("title")}
-            helperText={errors.title && errors.title.message}
-            error={errors.title}
-          />
-        </Grid>
-        <Grid container style={{ marginBottom: "20px" }}>
-          <Typography className={classes.label} variant="sm" color="text">
-            {"انتخاب ارز دیجیتال"}
-          </Typography>
-          <TextField
-            fullWidth
-            name="blockchain"
-            size="small"
-            variant="outlined"
-            inputRef={register("blockchain").ref}
-            {...register("blockchain")}
-            id="outlined-select-blockchain"
-            select
-            value={currency}
-            onChange={handleChange}
-            className={classes.select}
-          >
-            {currencies.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                <img
-                  src={window.location.origin + `/${option.label}.svg`}
-                  alt={option.label}
-                  width="30"
-                />{" "}
-                <Typography style={{ padding: "0px 10px" }}>
-                  {option.label}
-                </Typography>
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
+  // useEffect(() => {
+  //   client
+  //     .query({
+  //       query: gql`
+  //         query GetRates {
+  //           rates(currency: "USD") {
+  //             currency
+  //           }
+  //         }
+  //       `,
+  //     })
+  //     .then((result) => console.log(result));
+  // }, []);
+  const EXCHANGE_RATES = gql`
+    query GetExchangeRates {
+      rates(currency: "USD") {
+        currency
+        rate
+      }
+    }
+  `;
 
-        <Grid container style={{ marginBottom: "20px" }}>
-          <Typography className={classes.label} variant="sm" color="text">
-            {"آدرس کیف"}
-          </Typography>
-          <TextField
-            fullWidth
-            name="address"
-            size="small"
-            disabled
-            variant="outlined"
-            value={getCurrency(currency)}
-          />
-        </Grid>
-      </FormCard>
-    </form>
+  function ExchangeRates() {
+    const { loading, error, data } = useQuery(EXCHANGE_RATES);
+    console.log(data);
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
+    return data.rates.map(({ currency, rate }) => (
+      <div key={currency}>
+        <p>
+          {currency}: {rate}
+        </p>
+      </div>
+    ));
+  }
+  return (
+    <>
+      <form
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Typography variant="h5">سلام به صفحه حساب کابری خوش آمدید</Typography>
+        <FormCard
+          title={"ساخت کیف پول"}
+          imageSrc={"../../../wallet.svg"}
+          saveButton={
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              onClick={handleSubmit}
+            >
+              ساخت کیف پول
+            </Button>
+          }
+        >
+          <Grid container style={{ marginBottom: "20px" }}>
+            <Typography variant="body">نام کیف پول</Typography>
+            <TextField
+              fullWidth
+              name="title"
+              size="small"
+              variant="outlined"
+              inputRef={register("title").ref}
+              {...register("title")}
+              helperText={errors.title && errors.title.message}
+              error={errors.title}
+            />
+          </Grid>
+          <Grid container style={{ marginBottom: "20px" }}>
+            <Typography className={classes.label} variant="sm" color="text">
+              {"انتخاب ارز دیجیتال"}
+            </Typography>
+            <TextField
+              fullWidth
+              name="blockchain"
+              size="small"
+              variant="outlined"
+              inputRef={register("blockchain").ref}
+              {...register("blockchain")}
+              id="outlined-select-blockchain"
+              select
+              value={currency}
+              onChange={handleChange}
+              className={classes.select}
+            >
+              {currencies.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  <img
+                    src={window.location.origin + `/${option.label}.svg`}
+                    alt={option.label}
+                    width="30"
+                  />{" "}
+                  <Typography style={{ padding: "0px 10px" }}>
+                    {option.label}
+                  </Typography>
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+
+          <Grid container style={{ marginBottom: "20px" }}>
+            <Typography className={classes.label} variant="sm" color="text">
+              {"آدرس کیف"}
+            </Typography>
+            <TextField
+              fullWidth
+              name="address"
+              size="small"
+              disabled
+              variant="outlined"
+              value={getCurrency(currency)}
+            />
+          </Grid>
+        </FormCard>
+      </form>
+      <ApolloProvider client={client}>
+        {" "}
+        <ExchangeRates />{" "}
+      </ApolloProvider>
+    </>
   );
 };
 export default Dashboard;
